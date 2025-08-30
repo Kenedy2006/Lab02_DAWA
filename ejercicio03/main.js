@@ -1,7 +1,7 @@
 const http = require("http");
 const PORT = 3000;
 
-// Simulamos un repositorio en memoria
+
 let estudiantes = [];
 let idCounter = 1;
 
@@ -50,13 +50,13 @@ const repo = {
 const server = http.createServer((req, res) => {
   const { url, method } = req;
 
-  // RUTA: GET /students
+  
   if (url === "/students" && method === "GET") {
     res.statusCode = 200;
     res.end(JSON.stringify(repo.getAll()));
   }
 
-  // RUTA: GET /students/:id
+
   else if (url.startsWith("/students/") && method === "GET") {
     const id = parseInt(url.split("/")[2]);
     const student = repo.getById(id);
@@ -69,7 +69,6 @@ const server = http.createServer((req, res) => {
     }
   }
 
-  // RUTA: POST /students
   else if (url === "/students" && method === "POST") {
     let body = "";
     req.on("data", chunk => (body += chunk));
@@ -85,7 +84,6 @@ const server = http.createServer((req, res) => {
     });
   }
 
-  // RUTA: PUT /students/:id
   else if (url.startsWith("/students/") && method === "PUT") {
     const id = parseInt(url.split("/")[2]);
     let body = "";
@@ -102,7 +100,6 @@ const server = http.createServer((req, res) => {
     });
   }
 
-  // RUTA: DELETE /students/:id
   else if (url.startsWith("/students/") && method === "DELETE") {
     const id = parseInt(url.split("/")[2]);
     const deleted = repo.remove(id);
@@ -115,7 +112,6 @@ const server = http.createServer((req, res) => {
     }
   }
 
-  // RUTA: POST /ListByStatus
   else if (url === "/ListByStatus" && method === "POST") {
     let body = "";
     req.on("data", chunk => (body += chunk));
@@ -127,7 +123,6 @@ const server = http.createServer((req, res) => {
     });
   }
 
-  // RUTA: POST /ListByGrade
   else if (url === "/ListByGrade" && method === "POST") {
     let body = "";
     req.on("data", chunk => (body += chunk));
@@ -139,7 +134,6 @@ const server = http.createServer((req, res) => {
     });
   }
 
-  // RUTA no encontrada
   else {
     res.statusCode = 404;
     res.end(JSON.stringify({ error: "Ruta no encontrada" }));
